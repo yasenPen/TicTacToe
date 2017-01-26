@@ -35,17 +35,19 @@ public:
 			cout << endl;
 		};
 	};
-	/*void ashow(){
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				cout << a[i][j];
-			};
-			cout << endl;
-		};
-	};*/
 	void upd(int x, int y) {
 		a[x][y] = ct % 2 ? 88 : 79;
 		ct++;
+	};
+	int wincheck() { 
+		if (ct > 4) {
+			if ((a[0][0] == a[0][1] == a[0][2]) | (a[1][0] == a[1][1] == a[1][2]) | (a[2][0] == a[2][1] == a[2][2]) |
+				(a[0][0] == a[1][0] == a[2][0]) | (a[0][1] == a[1][1] == a[2][1]) | (a[0][2] == a[1][2] == a[2][2]) |
+				(a[0][0] == a[1][1] == a[2][2]) | (a[2][0] == a[1][1] == a[0][2])) {
+				return 0;
+			}
+			else return 1;
+		};
 	};
 };
 
@@ -58,11 +60,21 @@ int main()
 	f.show();
 	for (; ct < 10;) {
 		static Field f1;
-		cout << "\nStolbets & stroka, kuda stavit': ";
+		cout << "\nVvedite x, y - coords yacheiki (ot 0 do 2): ";
 		cin >> x >> y;
-		f1.upd(x, y);
-		system("CLS");
-		f1.show();
+		if (x >= 0 & x < 3 & y >= 0 & y < 3) {
+			f1.upd(x, y);
+			system("CLS");
+			f1.show();
+		}
+		else {
+			cout << "\nSkazano je, ot 0 do 2\n";
+			ct--;
+		};
+		if (f1.wincheck()) {
+			cout << f1.wincheck();
+			cout <<"Pozdravlaem " << ct % 2 * 88 + (ct + 1) % 2 * 79 << " c pobedoi!\n\n";
+		};
 	};
 	system("pause");
     return 0;
