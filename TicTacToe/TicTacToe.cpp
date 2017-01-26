@@ -35,14 +35,14 @@ public:
 			cout << endl;
 		};
 	};
-	void ashow(){
+	/*void ashow(){
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				cout << a[i][j];
 			};
 			cout << endl;
 		};
-	};
+	};*/
 	void upd(int x, int y) {
 		a[x][y] = ct % 2 ? 88 : 79;
 		ct++;
