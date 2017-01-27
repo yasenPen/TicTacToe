@@ -40,14 +40,16 @@ public:
 		ct++;
 	};
 	int wincheck() { 
-		if (ct > 4) {
-			if ((a[0][0] == a[0][1] == a[0][2]) | (a[1][0] == a[1][1] == a[1][2]) | (a[2][0] == a[2][1] == a[2][2]) |
-				(a[0][0] == a[1][0] == a[2][0]) | (a[0][1] == a[1][1] == a[2][1]) | (a[0][2] == a[1][2] == a[2][2]) |
-				(a[0][0] == a[1][1] == a[2][2]) | (a[2][0] == a[1][1] == a[0][2])) {
+		if (a[0][0] & a[1][1] & a[2][2])
+		{
+			if (a[0][0] == a[0][1] & a[0][1] == a[0][2] | a[1][0] == a[1][1] & a[1][1] == a[1][2] | a[2][0] == a[2][1] & a[2][1] == a[2][2] |
+				a[0][0] == a[1][0] & a[1][0] == a[2][0] | a[0][1] == a[1][1] & a[1][1] == a[2][1] | a[0][2] == a[1][2] & a[1][2] == a[2][2] |
+				a[0][0] == a[1][1] & a[1][1] == a[2][2] | a[0][2] == a[1][1] & a[1][1] == a[2][0]) {
+				ct += 6;
 				return 0;
 			}
-			else return 1;
 		};
+	return -1;
 	};
 };
 
@@ -57,6 +59,7 @@ int main()
 	setlocale(0, "C");
 	Field f;
 	int x, y;
+	flag :
 	f.show();
 	for (; ct < 10;) {
 		static Field f1;
@@ -71,11 +74,21 @@ int main()
 			cout << "\nSkazano je, ot 0 do 2\n";
 			ct--;
 		};
-		if (f1.wincheck()) {
+		if (!f1.wincheck()) {
 			cout << f1.wincheck();
-			cout <<"Pozdravlaem " << ct % 2 * 88 + (ct + 1) % 2 * 79 << " c pobedoi!\n\n";
+			cout <<"\nPozdravlaem " << (char) ((ct + 1) % 2 * 88 + ct % 2 * 79) << " c pobedoi!\nWanna play again? (y/n): ";
+		};
+		if (ct == 10 & f1.wincheck() == -1) {
+			cout << "Draw! Wanna play again? (y/n): ";
 		};
 	};
+	char resp;
+	cin >> resp;
+	if (resp == 'y') {
+		ct = 1;
+		goto flag;
+	}
+	else cout << "\nBye!\n";
 	system("pause");
     return 0;
 }
