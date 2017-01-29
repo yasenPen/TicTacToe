@@ -57,35 +57,39 @@ public:
 int main()
 {
 	setlocale(0, "C");
-	Field f;
+	Field *f = new (Field);
 	int x, y;
 	flag :
-	f.show();
+	f->show();
 	for (; ct < 10;) {
-		static Field f1;
+		static Field *f1 = new (Field);
 		cout << "\nVvedite x, y - coords yacheiki (ot 0 do 2): ";
 		cin >> x >> y;
 		if (x >= 0 & x < 3 & y >= 0 & y < 3) {
-			f1.upd(x, y);
+			f1->upd(x, y);
 			system("CLS");
-			f1.show();
+			f1->show();
 		}
 		else {
 			cout << "\nSkazano je, ot 0 do 2\n";
-			ct--;
 		};
-		if (!f1.wincheck()) {
-			cout << f1.wincheck();
+		if (!f1->wincheck()) {
+			cout << f1->wincheck();
 			cout <<"\nPozdravlaem " << (char) ((ct + 1) % 2 * 88 + ct % 2 * 79) << " c pobedoi!\nWanna play again? (y/n): ";
+			delete f1;
 		};
-		if (ct == 10 & f1.wincheck() == -1) {
+		if (ct == 10 & f1->wincheck() == -1) {
+			delete f1;
 			cout << "Draw! Wanna play again? (y/n): ";
 		};
 	};
 	char resp;
 	cin >> resp;
 	if (resp == 'y') {
+		system("CLS");
 		ct = 1;
+		delete f;
+		Field *f = new (Field);
 		goto flag;
 	}
 	else cout << "\nBye!\n";
